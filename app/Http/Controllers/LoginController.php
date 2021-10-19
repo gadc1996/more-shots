@@ -21,6 +21,7 @@ class LoginController extends Controller
      */
     public function __invoke(LoginRequest $request)
     {
+        \Log::info('Inside Login Controller');
         return $this->repository->login($request->validated());
     }
 }

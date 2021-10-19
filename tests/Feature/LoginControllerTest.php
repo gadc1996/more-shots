@@ -27,8 +27,8 @@ class LoginControllerTest extends TestCase
     public function testAdminCanLogin(): void
     {
         $adminCredentials = [
-            'email' => $this->admin->email,
-            'password' => $this->admin->password,
+            'email' => env('ADMIN_EMAIL', 'admin@example.com'),
+            'password' => env('ADMIN_PASSWORD', 'admin'),
         ];
 
         $response = $this->post('/api/login', $adminCredentials)
