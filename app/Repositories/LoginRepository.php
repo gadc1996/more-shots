@@ -18,7 +18,7 @@ class LoginRepository implements LoginRepositoryInterface
 
     public function login(array $credentials): jsonResponse
     {
-        $admin = Admin::where('email', $credentials['email'])->first();
+        $admin = Admin::where('email', $credentials['email'])->firstOrFail();
         if (Hash::check($credentials['password'], $admin->password)) {
             return response()->json(['data' => $admin]);
         } else {
