@@ -8,15 +8,15 @@ use Tests\TestCase;
 
 class CustomerControllerTest extends TestCase
 {
+    use RefreshDatabase;
     /**
      * A basic feature test example.
      *
      * @return void
      */
-    public function testExample()
+    public function testAdminCanListUsers()
     {
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
+        $response = $this->get('/api/customers')
+                         ->assertOk();
     }
 }
