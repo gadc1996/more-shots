@@ -14,3 +14,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/login', 'LoginController');
+Route::apiResource('/customers', 'CustomerController');
