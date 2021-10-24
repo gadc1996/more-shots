@@ -1,6 +1,8 @@
 <?php
 namespace App\Repositories;
 
+use Illuminate\Database\Eloquent\Collection;
+
 use App\Customer;
 
 class CustomerRepository implements CustomerRepositoryInterface
@@ -12,7 +14,7 @@ class CustomerRepository implements CustomerRepositoryInterface
         $this->model = $customer;
     }
 
-    public function index()
+    public function index(): Collection
     {
         return $this->model->all();
     }

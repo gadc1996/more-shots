@@ -3,10 +3,10 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 use App\Customer;
+use Illuminate\Testing\TestResponse as TestingTestResponse;
 
 class CustomerControllerTest extends TestCase
 {
@@ -16,61 +16,73 @@ class CustomerControllerTest extends TestCase
      *
      * @return void
      */
-    public function testAdminCanListCustomers()
+
+    public function setUp(): void
     {
-        $response = $this->get('/api/customers')
-                         ->assertOk();
+        parent::setUp();
+
+        $this->model = Customer::class;
+        $this->route = '/api/customers/';
+        $this->databaseTable = 'customers';
+
+        $this->factory = factory($this->model)->make()->toArray();
+        $this->updateFactory = factory($this->model)->make()->toArray();
     }
 
-    public function testAdminCanCreateCustomer()
+    private function createResource(): TestingTestResponse
     {
-        $payload = factory(Customer::class)->make()->toArray();
-
-        $response = $this->post('/api/customers', $payload)
-                         ->assertCreated();
-
-        $this->assertDatabaseHas('customers', $payload);
+        return $this->post($this->route, $this->factory);
     }
 
-    public function testAdminCanDeleteCustomer()
+    private function deleteResource($resource): TestingTestResponse
     {
-        $payload = factory(Customer::class)->make()->toArray();
+        return $this->delete($this->route . $resource->id);
+    }
 
-        $response = $this->post('/api/customers', $payload);
+    private function findResource($resource): TestingTestResponse
+    {
+        return $this->get($this->route . $resource->id);
+    }
 
-        $response = json_decode($response->getContent());
+    private function updateResource($resource): TestingTestResponse
+    {
+        return $this->put($this->route . $resource->id, $this->updateFactory);
+    }
 
-        $this->delete("api/customers/$response->id");
-        $this->assertDatabaseMissing('customers', [
-            'id' => $response->id,
+    public function testAdminCanListCustomers(): void
+    {
+        $this->get($this->route)->assertOk();
+    }
+
+    public function testAdminCanCreateCustomer(): void
+    {
+        $this->createResource()->assertCreated();
+    }
+
+    public function testAdminCanDeleteCustomer(): void
+    {
+        $resource = json_decode($this->createResource()->getContent());
+
+        $this->deleteResource($resource);
+        
+        $this->assertDatabaseMissing($this->databaseTable, [
+            'id' => $resource->id,
         ]);
     }
 
-    public function testAdminCanFindCustomer()
+    public function testAdminCanFindCustomer(): void
     {
-        $payload = factory(Customer::class)->make()->toArray();
+        $resource = json_decode($this->createResource()->getContent());
 
-        $resource= json_decode($this->post('/api/customers', $payload)->getContent());
-
-        $response = $this->get("api/customers/$resource->id")
-            ->assertOk();
-
+        $response =  $this->findResource($resource)->assertOk();
         $response = json_decode($response->getContent());
+
         $this->assertEquals($resource, $response);
     }
 
-    public function testAdminCanUpdateCustomer()
+    public function testAdminCanUpdateCustomer(): void
     {
-        $payload = factory(Customer::class)->make()->toArray();
-        $updatePayload = factory(Customer::class)->make()->toArray();
-
-        $resource = json_decode(
-            $this->post('api/customers', $payload)
-                 ->getContent()
-        );
-
-        $response = $this->put("api/customers/$resource->id", $updatePayload)
-                         ->assertCreated();
+        $resource = json_decode($this->createResource()->getContent());
+        $this->updateResource($resource)->assertCreated();
     }
-
 }
