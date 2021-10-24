@@ -2,20 +2,15 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Testing\TestResponse as TestingTestResponse;
 
 use App\Customer;
-use Illuminate\Testing\TestResponse as TestingTestResponse;
 
 class CustomerControllerTest extends TestCase
 {
     use RefreshDatabase;
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
 
     public function setUp(): void
     {
