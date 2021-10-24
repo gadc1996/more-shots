@@ -2,11 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Customer;
 use Illuminate\Http\Request;
+
+use App\Customer;
+use App\Repositories\CustomerRepositoryInterface;
+use App\Http\Requests\CustomerStoreRequest;
+use App\Http\Requests\CustomerUpdateRequest;
+
 
 class CustomerController extends Controller
 {
+    private $repository;
+
+    public function __construct(CustomerRepositoryInterface $repository)
+    {
+        $this->repository = $repository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +26,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return response()->json([], 200);
+        return response()->json($this->repository->index(), 200);
     }
 
     /**
@@ -23,9 +35,9 @@ class CustomerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CustomerStoreRequest $request)
     {
-        //
+        return response()->json($this->repository->store($request->validated()), 201);
     }
 
     /**
@@ -34,9 +46,9 @@ class CustomerController extends Controller
      * @param  \App\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function show(Customer $customer)
+    public function show($id)
     {
-        //
+        return response()->json($this->repository->show($id), 200);
     }
 
     /**
@@ -46,9 +58,9 @@ class CustomerController extends Controller
      * @param  \App\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Customer $customer)
+    public function update(CustomerUpdateRequest $request, $id)
     {
-        //
+        return response()->json($this->repository->update($request->validated(), $id), 201);
     }
 
     /**
@@ -57,8 +69,8 @@ class CustomerController extends Controller
      * @param  \App\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Customer $customer)
+    public function destroy($id)
     {
-        //
+        return response()->json($this->repository->destroy($id), 200);
     }
 }
