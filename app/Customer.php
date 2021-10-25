@@ -12,4 +12,13 @@ class Customer extends Model
         'email',
         'phone_number'
     ];
+
+    public $appends = [
+        'full_name',
+    ];
+
+    public function getFullNameAttribute()
+    {
+        return "$this->first_name $this->last_name";
+    }
 }
