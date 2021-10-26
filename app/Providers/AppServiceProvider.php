@@ -24,6 +24,11 @@ class AppServiceProvider extends ServiceProvider
         );
 
         $this->app->bind(
+            'App\Repositories\WaiterRepositoryInterface',
+            'App\Repositories\WaiterRepository'
+        );
+
+        $this->app->bind(
             'App\Repositories\EventRepositoryInterface',
             'App\Repositories\EventRepository'
         );

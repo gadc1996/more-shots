@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
         $this->call(CustomerSeeder::class);
         $this->call(Event:::class);
         $this->call(EventType:::class);
+        $this->call(Waiter:::class);
     }
 }
