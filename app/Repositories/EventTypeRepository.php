@@ -3,13 +3,13 @@ namespace App\Repositories;
 
 use Illuminate\Database\Eloquent\Collection;
 
-use App\Event;
+use App\EventType;
 
-class EventRepository implements EventRepositoryInterface
+class EventTypeRepository implements EventTypeRepositoryInterface
 {
     protected $model;
 
-    public function __construct(Event $event)
+    public function __construct(EventType $event)
     {
         $this->model = $event;
     }

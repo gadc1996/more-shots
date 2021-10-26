@@ -14,5 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/login', 'LoginController');
-Route::apiResource('/customers', 'CustomerController');
-Route::apiResource('/events', 'EventController');
+Route::apiResources([
+    'customers' => 'CustomerController',
+    'events' => 'EventController',
+    'events/types' => 'EventTypeController',
+]);

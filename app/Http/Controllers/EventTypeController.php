@@ -2,63 +2,43 @@
 
 namespace App\Http\Controllers;
 
-use App\EventType;
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+
+use App\Repositories\EventTypeRepositoryInterface;
+use App\Http\Requests\EventTypeStoreRequest;
+use App\Http\Requests\EventTypeUpdateRequest;
 
 class EventTypeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    private $repository;
+
+    public function __construct(EventTypeRepositoryInterface $repository)
     {
-        //
+        $this->repository = $repository;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function index(): JsonResponse
     {
-        //
+        return response()->json($this->repository->index(), 200);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\EventType  $eventType
-     * @return \Illuminate\Http\Response
-     */
-    public function show(EventType $eventType)
+    public function store(EventTypeStoreRequest $request): JsonResponse
     {
-        //
+        return response()->json($this->repository->store($request->validated()), 201);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\EventType  $eventType
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, EventType $eventType)
+    public function show($id): JsonResponse
     {
-        //
+        return response()->json($this->repository->show($id), 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\EventType  $eventType
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(EventType $eventType)
+    public function update(EventTypeUpdateRequest $request, $id): JsonResponse
     {
-        //
+        return response()->json($this->repository->update($request->validated(), $id), 201);
+    }
+
+    public function destroy($id): JsonResponse
+    {
+        return response()->json($this->repository->destroy($id), 200);
     }
 }
