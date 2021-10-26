@@ -2,63 +2,43 @@
 
 namespace App\Http\Controllers;
 
-use App\Event;
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+
+use App\Repositories\EventRepositoryInterface;
+use App\Http\Requests\EventStoreRequest;
+use App\Http\Requests\EventUpdateRequest;
 
 class EventController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    private $repository;
+
+    public function __construct(EventRepositoryInterface $repository)
     {
-        //
+        $this->repository = $repository;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function index(): JsonResponse
     {
-        //
+        return response()->json($this->repository->index(), 200);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Event  $event
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Event $event)
+    public function store(EventStoreRequest $request): JsonResponse
     {
-        //
+        return response()->json($this->repository->store($request->validated()), 201);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Event  $event
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Event $event)
+    public function show($id): JsonResponse
     {
-        //
+        return response()->json($this->repository->show($id), 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Event  $event
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Event $event)
+    public function update(EventUpdateRequest $request, $id): JsonResponse
     {
-        //
+        return response()->json($this->repository->update($request->validated(), $id), 201);
+    }
+
+    public function destroy($id): JsonResponse
+    {
+        return response()->json($this->repository->destroy($id), 200);
     }
 }
