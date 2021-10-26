@@ -1,47 +1,24 @@
-<?php
-
-namespace Tests\Feature;
+<?php namespace Tests\Feature;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Testing\TestResponse as TestingTestResponse;
 
 use App\Customer;
+use App\Traits\CrudTestMethodsTrait;
 
 class CustomerControllerTest extends TestCase
 {
     use RefreshDatabase;
+    use CrudTestMethodsTrait;
+
+    private $route = '/api/customers/';
+    private $databaseTable = 'customers';
 
     public function setUp(): void
     {
         parent::setUp();
-
         $this->model = Customer::class;
-        $this->route = '/api/customers/';
-        $this->databaseTable = 'customers';
-
-        $this->factory = factory($this->model)->make()->toArray();
-        $this->updateFactory = factory($this->model)->make()->toArray();
-    }
-
-    private function createResource(): TestingTestResponse
-    {
-        return $this->post($this->route, $this->factory);
-    }
-
-    private function deleteResource($resource): TestingTestResponse
-    {
-        return $this->delete($this->route . $resource->id);
-    }
-
-    private function findResource($resource): TestingTestResponse
-    {
-        return $this->get($this->route . $resource->id);
-    }
-
-    private function updateResource($resource): TestingTestResponse
-    {
-        return $this->put($this->route . $resource->id, $this->updateFactory);
+        $this->setFactories();
     }
 
     public function testAdminCanListCustomers(): void
@@ -57,9 +34,7 @@ class CustomerControllerTest extends TestCase
     public function testAdminCanDeleteCustomer(): void
     {
         $resource = json_decode($this->createResource()->getContent());
-
         $this->deleteResource($resource);
-        
         $this->assertDatabaseMissing($this->databaseTable, [
             'id' => $resource->id,
         ]);
@@ -68,10 +43,8 @@ class CustomerControllerTest extends TestCase
     public function testAdminCanFindCustomer(): void
     {
         $resource = json_decode($this->createResource()->getContent());
-
         $response =  $this->findResource($resource)->assertOk();
         $response = json_decode($response->getContent());
-
         $this->assertEquals($resource, $response);
     }
 

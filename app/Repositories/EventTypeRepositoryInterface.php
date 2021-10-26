@@ -1,8 +1,4 @@
-<?php
-
-namespace App\Repositories;
-
-use Illuminate\Http\JsonResponse;
+<?php namespace App\Repositories;
 
 interface EventTypeRepositoryInterface extends CrudRepositoryInterface
 {

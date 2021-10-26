@@ -1,21 +1,12 @@
-<?php
-
-namespace App;
+<?php namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Traits\WaiterAttributesTrait;
+
 class Waiter extends Model
 {
-    public $fillable = [
-        'first_name',
-        'last_name',
-        'email',
-        'phone_number'
-    ];
-
-    public $appends = [
-        'full_name',
-    ];
+    use WaiterAttributesTrait;
 
     public function getFullNameAttribute()
     {
