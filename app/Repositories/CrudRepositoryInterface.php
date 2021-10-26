@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Collection;
 interface CrudRepositoryInterface
 {
     public function index(): Collection;
-
+    
     public function store(array $data);
 
     public function update(array $data, $id);

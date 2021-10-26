@@ -26,7 +26,9 @@ class CustomerRepository implements CustomerRepositoryInterface
 
     public function update(array $data, $id)
     {
-        return $this->model->where('id', $id)->update($data);
+        $model = $this->model->find($id);
+        $model->update($data);
+        return $model;
     }
 
     public function destroy($id)
