@@ -13,9 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/login', 'LoginController');
+Route::post('login', 'LoginController');
 Route::apiResources([
     'customers' => 'CustomerController',
+    'waiters' => 'WaiterController',
     'events' => 'EventController',
     'events/types' => 'EventTypeController',
 ]);
