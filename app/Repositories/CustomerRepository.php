@@ -8,35 +8,45 @@ class CustomerRepository implements CustomerRepositoryInterface
 {
     protected $model;
 
+    private function getResourceById($id)
+    {
+        return $resource = $this->model->find($id);
+    }
+
     public function __construct(Customer $customer)
     {
         $this->model = $customer;
     }
 
-    public function index(): Collection
+    public function index()
     {
-        return $this->model->all();
-    }
-
-    public function store($data)
-    {
-        return $this->model->create($data);
-    }
-
-    public function update(array $data, $id)
-    {
-        $model = $this->model->find($id);
-        $model->update($data);
-        return $model;
-    }
-
-    public function destroy($id)
-    {
-        return $this->model->destroy($id);
+        return $this->model->paginate();
     }
 
     public function show($id)
     {
-        return $this->model->find($id);
+        $resource = $this->getResourceById($id);
+        return $resource;
     }
+
+    public function store($data)
+    {
+        $resource = $this->model->create($data);
+        return $resource;
+    }
+
+    public function update(array $data, $id)
+    {
+        $resource = $this->getResourceById($id);
+        $resource->update($data);
+        return $resource;
+    }
+
+    public function destroy($id)
+    {
+        $resource = $this->getResourceById($id);
+        $resource->destroy($resource->id);
+        return $resource;
+    }
+
 }

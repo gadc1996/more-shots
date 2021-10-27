@@ -11,8 +11,8 @@ class EventTypeControllerTest extends TestCase
     use RefreshDatabase;
     use CrudTestMethodsTrait;
 
-    private $route = '/api/events/types/';
-    private $databaseTable = 'events';
+    private $route = '/api/event-types/';
+    private $databaseTable = 'event_types';
 
     public function setUp(): void
     {
@@ -36,7 +36,7 @@ class EventTypeControllerTest extends TestCase
         $resource = json_decode($this->createResource()->getContent());
         $this->deleteResource($resource);
         $this->assertDatabaseMissing($this->databaseTable, [
-            'id' => $resource->id,
+            'id' => $resource->data->id,
         ]);
     }
 

@@ -1,10 +1,10 @@
 <?php namespace App\Http\Controllers;
 
-use Illuminate\Http\JsonResponse;
-
 use App\Repositories\WaiterRepositoryInterface;
 use App\Http\Requests\WaiterStoreRequest;
 use App\Http\Requests\WaiterUpdateRequest;
+use App\Http\Resources\WaiterCollection;
+use App\Http\Resources\WaiterResource;
 
 class WaiterController extends Controller
 {
@@ -15,29 +15,38 @@ class WaiterController extends Controller
         $this->repository = $repository;
     }
 
-    public function index(): JsonResponse
+    public function index()
     {
-        return response()->json($this->repository->index(), 200);
+        $resource = $this->repository->index();
+        $response = (new WaiterCollection($resource))->response();
+        return $response->setStatusCode(200);
     }
 
-    public function store(WaiterStoreRequest $request): JsonResponse
+    public function store(WaiterStoreRequest $request)
     {
-        return response()->json($this->repository->store($request->validated()), 201);
+        $resource = $this->repository->store($request->validated());
+        $response = (new WaiterResource($resource))->response();
+        return $response->setStatusCode(201);
     }
 
-    public function show($id): JsonResponse
+    public function show($id)
     {
-        return response()->json($this->repository->show($id), 200);
+        $resource = $this->repository->show($id);
+        $response = (new WaiterResource($resource))->response();
+        return $response->setStatusCode(200);
     }
 
-    public function update(WaiterUpdateRequest $request, $id): JsonResponse
+    public function update(WaiterUpdateRequest $request, $id) 
     {
-        return response()->json($this->repository->update($request->validated(), $id), 201);
+        $resource = $this->repository->update($request->validated(), $id);
+        $response = (new WaiterResource($resource))->response();
+        return $response->setStatusCode(201);
     }
 
-    public function destroy($id): JsonResponse
+    public function destroy($id)
     {
-        return response()->json($this->repository->destroy($id), 200);
+        $resource = $this->repository->destroy($id);
+        $response = (new WaiterResource($resource))->response();
+        return $response->setStatusCode(200);
     }
 }
-

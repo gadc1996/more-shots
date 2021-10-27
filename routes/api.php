@@ -18,5 +18,5 @@ Route::apiResources([
     'customers' => 'CustomerController',
     'waiters' => 'WaiterController',
     'events' => 'EventController',
-    'events/types' => 'EventTypeController',
+    'event-types' => 'EventTypeController',
 ]);

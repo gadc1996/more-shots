@@ -10,17 +10,17 @@ trait CrudTestMethodsTrait{
 
     protected function deleteResource($resource): TestingTestResponse
     {
-        return $this->delete($this->route . $resource->id);
+        return $this->delete($this->route . $resource->data->id);
     }
 
     protected function findResource($resource): TestingTestResponse
     {
-        return $this->get($this->route . $resource->id);
+        return $this->get($this->route . $resource->data->id);
     }
 
     protected function updateResource($resource): TestingTestResponse
     {
-        return $this->put($this->route . $resource->id, $this->updateFactory);
+        return $this->put($this->route . $resource->data->id, $this->updateFactory);
     }
 
     protected function setFactory()

@@ -1,10 +1,10 @@
 <?php namespace App\Http\Controllers;
 
-use Illuminate\Http\JsonResponse;
-
 use App\Repositories\CustomerRepositoryInterface;
 use App\Http\Requests\CustomerStoreRequest;
 use App\Http\Requests\CustomerUpdateRequest;
+use App\Http\Resources\CustomerCollection;
+use App\Http\Resources\CustomerResource;
 
 class CustomerController extends Controller
 {
@@ -15,28 +15,38 @@ class CustomerController extends Controller
         $this->repository = $repository;
     }
 
-    public function index(): JsonResponse
+    public function index()
     {
-        return response()->json($this->repository->index(), 200);
+        $resource = $this->repository->index();
+        $response = (new CustomerCollection($resource))->response();
+        return $response->setStatusCode(200);
     }
 
-    public function store(CustomerStoreRequest $request): JsonResponse
+    public function store(CustomerStoreRequest $request)
     {
-        return response()->json($this->repository->store($request->validated()), 201);
+        $resource = $this->repository->store($request->validated());
+        $response = (new CustomerResource($resource))->response();
+        return $response->setStatusCode(201);
     }
 
-    public function show($id): JsonResponse
+    public function show($id)
     {
-        return response()->json($this->repository->show($id), 200);
+        $resource = $this->repository->show($id);
+        $response = (new CustomerResource($resource))->response();
+        return $response->setStatusCode(200);
     }
 
-    public function update(CustomerUpdateRequest $request, $id): JsonResponse
+    public function update(CustomerUpdateRequest $request, $id) 
     {
-        return response()->json($this->repository->update($request->validated(), $id), 201);
+        $resource = $this->repository->update($request->validated(), $id);
+        $response = (new CustomerResource($resource))->response();
+        return $response->setStatusCode(201);
     }
 
-    public function destroy($id): JsonResponse
+    public function destroy($id)
     {
-        return response()->json($this->repository->destroy($id), 200);
+        $resource = $this->repository->destroy($id);
+        $response = (new CustomerResource($resource))->response();
+        return $response->setStatusCode(200);
     }
 }

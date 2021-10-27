@@ -36,7 +36,7 @@ class CustomerControllerTest extends TestCase
         $resource = json_decode($this->createResource()->getContent());
         $this->deleteResource($resource);
         $this->assertDatabaseMissing($this->databaseTable, [
-            'id' => $resource->id,
+            'id' => $resource->data->id,
         ]);
     }
 
