@@ -12,7 +12,7 @@ class EventTypeController extends Controller
 {
     private $repository;
 
-    public function __construct(EventTypeRepositoryInterface $repository): void
+    public function __construct(EventTypeRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }

@@ -11,7 +11,7 @@ class WaiterController extends Controller
 {
     private $repository;
 
-    public function __construct(WaiterRepositoryInterface $repository): void
+    public function __construct(WaiterRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }

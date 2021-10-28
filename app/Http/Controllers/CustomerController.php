@@ -12,7 +12,7 @@ class CustomerController extends Controller
 {
     private $repository;
 
-    public function __construct(CustomerRepositoryInterface $repository): void
+    public function __construct(CustomerRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
