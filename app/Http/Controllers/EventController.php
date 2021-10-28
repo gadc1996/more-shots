@@ -17,7 +17,6 @@ class EventController extends Controller
 
     public function index()
     {
-        \Log::info('inside index');
         $resource = $this->repository->index();
         $response = (new EventCollection($resource))->response();
         return $response->setStatusCode(200);

@@ -14,6 +14,12 @@ class CustomerControllerTest extends TestCase
     private $route = '/api/customers/';
     private $databaseTable = 'customers';
 
+    private $jsonStructure = [
+        'data',
+        'links',
+        'meta',
+    ];
+
     public function setUp(): void
     {
         parent::setUp();
@@ -23,7 +29,10 @@ class CustomerControllerTest extends TestCase
 
     public function testAdminCanListCustomers(): void
     {
-        $this->get($this->route)->assertOk();
+        $this->get($this->route)
+             ->assertOk()
+             ->assertHeader('Content-Type', 'application/json')
+             ->assertJsonStructure($this->jsonStructure);
     }
 
     public function testAdminCanCreateCustomer(): void

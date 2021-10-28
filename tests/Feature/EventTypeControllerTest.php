@@ -13,6 +13,12 @@ class EventTypeControllerTest extends TestCase
 
     private $route = '/api/event-types/';
     private $databaseTable = 'event_types';
+    
+    private $jsonStructure = [
+        'data',
+        'links',
+        'meta',
+    ];
 
     public function setUp(): void
     {
@@ -23,7 +29,10 @@ class EventTypeControllerTest extends TestCase
 
     public function testAdminCanListEventTypes(): void
     {
-        $this->get($this->route)->assertOk();
+        $this->get($this->route)->assertOk()
+             ->assertOk()
+             ->assertHeader('Content-Type', 'application/json')
+             ->assertJsonStructure($this->jsonStructure);
     }
 
     public function testAdminCanCreateEventTypes(): void

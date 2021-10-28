@@ -13,9 +13,9 @@ class EventRepository implements EventRepositoryInterface
         $this->model = $event;
     }
 
-    public function index(): Collection
+    public function index()
     {
-        return $this->model->all();
+        return $this->model->paginate();
     }
 
     public function store($data)

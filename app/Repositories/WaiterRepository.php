@@ -1,7 +1,5 @@
 <?php namespace App\Repositories;
 
-use Illuminate\Database\Eloquent\Collection;
-
 use App\Waiter;
 
 class WaiterRepository implements WaiterRepositoryInterface
@@ -13,9 +11,9 @@ class WaiterRepository implements WaiterRepositoryInterface
         $this->model = $customer;
     }
 
-    public function index(): Collection
+    public function index()
     {
-        return $this->model->all();
+        return $this->model->paginate();
     }
 
     public function store($data)

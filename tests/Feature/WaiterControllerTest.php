@@ -14,6 +14,12 @@ class WaiterControllerTest extends TestCase
     private $route = '/api/waiters/';
     private $databaseTable = 'waiters';
 
+    private $jsonStructure = [
+        'data',
+        'links',
+        'meta',
+    ];
+
     public function setUp(): void
     {
         parent::setUp();
@@ -23,7 +29,10 @@ class WaiterControllerTest extends TestCase
 
     public function testAdminCanListWaiters(): void
     {
-        $this->get($this->route)->assertOk();
+        $this->get($this->route)->assertOk()
+             ->assertOk()
+             ->assertHeader('Content-Type', 'application/json')
+             ->assertJsonStructure($this->jsonStructure);
     }
 
     public function testAdminCanCreateWaiter(): void
