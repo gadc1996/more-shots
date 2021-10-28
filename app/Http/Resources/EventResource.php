@@ -10,11 +10,11 @@ class EventResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'price' => $this->price,
-            'payed' => $this->payed,
+            'comments' => $this->comments,
             'guests_number' => $this->guests_number,
             'location' => $this->location,
-            'comments' => $this->comments,
+            'payed' => $this->payed,
+            'price' => $this->price,
         ];
     }
 }

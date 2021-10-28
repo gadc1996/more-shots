@@ -10,8 +10,8 @@ class WaiterResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'full_name' => $this->full_name,
             'email' => $this->email,
+            'full_name' => $this->full_name,
             'phone_number' => $this->phone_number,
         ];
     }
