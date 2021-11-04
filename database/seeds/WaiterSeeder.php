@@ -11,6 +11,6 @@ class WaiterSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Waiter::class, 20)->create();
+        factory(App\Waiter::class, 80)->create();
     }
 }

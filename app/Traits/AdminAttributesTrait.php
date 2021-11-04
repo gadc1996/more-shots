@@ -1,4 +1,6 @@
-<?php namespace App\Traits;
+<?php 
+
+namespace App\Traits;
 
 trait AdminAttributesTrait {
     public function initializeAdminAttributesTrait()
@@ -10,5 +12,3 @@ trait AdminAttributesTrait {
         ];
     }
 }
-
-
