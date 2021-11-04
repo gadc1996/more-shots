@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Http\Controllers;
 
@@ -14,12 +14,6 @@ class LoginController extends Controller
         $this->repository = $repository;
     }
 
-    /**
-     * Handle the incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function __invoke(LoginRequest $request)
     {
         return $this->repository->login($request->validated());

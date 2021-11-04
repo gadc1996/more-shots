@@ -35,7 +35,6 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        \Log::info('controller');
         $this->middleware('guest')->except('logout');
     }
 }
