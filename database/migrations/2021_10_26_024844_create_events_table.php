@@ -18,6 +18,7 @@ class CreateEventsTable extends Migration
             $table->smallInteger('price');
             $table->smallInteger('payed')->default(0);
             $table->smallInteger('guests_number')->nullable();
+            $table->smallInteger('shots_total')->nullable();
             $table->string('location', 100);
             $table->dateTime('datetime');
             $table->string('comments', 200)->nullable();

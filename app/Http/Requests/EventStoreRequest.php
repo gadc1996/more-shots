@@ -11,6 +11,7 @@ class EventStoreRequest extends FormRequest
             'payed' => [],
             'comments' => [],
             'guests_number' => [],
+            'shots_total' => [],
             'location' => [],
             'datetime' => [],
         ];

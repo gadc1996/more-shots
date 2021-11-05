@@ -10,6 +10,7 @@ $factory->define(Event::class, function (Faker $faker) {
         'price' => $faker->randomNumber(4, true),
         'guests_number' => $faker->numberBetween(0, 200),
         'payed' => 0,
+        'shots_total' => $faker->numberBetween(100, 500),
         'comments' => $faker->text(),
         'location' => $faker->address(),
         'datetime' => $faker->date('Y-m-d ').$faker->time(),

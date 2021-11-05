@@ -10,6 +10,7 @@ class EventUpdateRequest extends FormRequest
             'price' => [],
             'payed' => [],
             'comments' => [],
+            'shots_total' => [],
             'guests_number' => [],
             'location' => [],
             'datetime' => [],

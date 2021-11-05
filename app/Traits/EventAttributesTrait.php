@@ -6,6 +6,7 @@ trait  EventAttributesTrait{
         $this->fillable = [
             'price',
             'payed',
+            'shots_total',
             'guests_number',
             'location',
             'comments',
