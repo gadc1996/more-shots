@@ -20,4 +20,5 @@ Route::apiResources([
     'waiters' => 'WaiterController',
     'events' => 'EventController',
     'event-types' => 'EventTypeController',
+    'shots' => 'ShotController',
 ]);
