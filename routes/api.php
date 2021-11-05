@@ -21,4 +21,5 @@ Route::apiResources([
     'events' => 'EventController',
     'event-types' => 'EventTypeController',
     'shots' => 'ShotController',
+    'furnishings' => 'FurnishingController',
 ]);
